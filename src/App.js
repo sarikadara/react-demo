@@ -1,40 +1,43 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 
 class App extends React.Component {
+  
+  render() {
+   return (
+    <Buttons>
+      <button value="A">A</button>
+      <button value="B">B</button>
+      <button value="c">C</button>
+    </Buttons>
+
+
+ 
+   )
+  } 
+}
+class Buttons extends React.Component {
   constructor(){
     super();
-    this.state = {a: ''}
-    
+    this.state = {selected: 'None'}
 
   }
-  update() {
-    this.setState({
-      a: this.a.refs.input.value,
-      b: this.refs.b.value
-    })
+  SelectItem(selected) {
+    this.setState({selected})
   }
   render(){
-    return (
-     <div>
-       <input
-        ref={ component=> this.a = this.component}
-        
-        update={this.update.bind(this)}
-       /> {this.state.a}
-       <hr />
-       <input
-        ref="b"
-        type="text"
-        onChange={this.update.bind(this)}
-       /> {this.state.b}
+    let fn = child => 
+     
+     React.cloneElement(child, {
+     onClick: this.SelectItem.bind(this,child.props.value)
+     })
+
+    let items = React.Children.map(this.props.children, fn);
+    return(
+      <div>
+        <h2>You have selected: {this.state.selected}</h2>
+        {items}
       </div>
     )
   }
 }
-class input extends React.Component {
-  render(){
-    return <div><input ref="input" type="text" onChange={this.props.update}/></div>
-  }
-}
-export default App;
+export default App
