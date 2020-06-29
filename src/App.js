@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import PropTypes from 'prop-types';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {currentEvent: '___'}
+    this.update = this.update.bind(this)
+
+  }
+  update(e) {
+    this.setState({currentEvent: e.type})
+  }
+  render(){
+    return (
+     <div>
+       <textarea
+       onkeyPress={this.update}
+       onCut={this.update}
+       onCopy={this.update}
+       onPaste={this.update}
+       onFocus={this.update}
+       onBlur={this.update}
+       onDoubleClick={this.update}
+       onTouchStart={this.update}
+       onTouchMove={this.update}
+       onTouchEnd={this.update}
+
+        cols="30"
+        rows="10" />
+       <h1>{this.state.currentEvent}</h1>
+       
+       
+
+      </div>
+    )
+  }
 }
 
 export default App;
